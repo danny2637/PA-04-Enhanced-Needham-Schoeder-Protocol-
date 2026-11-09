@@ -1,0 +1,34 @@
+***************************************************
+Starting Amal
+***************************************************
+
+<readFrom KDC> FD=5 , <sendTo KDC> FD=4 , <readFrom Basim> FD=9 , <sendTo Basim> FD=8
+
+Amal has this Master Ka { key , IV }
+    0000 - 47 ee 9b 27 39 b3 70 ba-e0 c2 2c b0 a3 d2 97 4a   G..'9.p...,....J
+    0010 - 08 7f 56 43 fa 99 90 94-8d 7a 25 d7 98 5f 2e a6   ..VC.....z%.._..
+
+    0000 - 33 28 b0 8a 53 aa 67 c6-20 1d 0d b0 47 a8 97 48   3(..S.g. ...G..H
+
+Amal will use these Nonces:  Na  and Na2
+    0000 - 44 33 22 11                                       D3".
+
+    0000 - dd cc bb aa                                       ....
+
+***************************************************
+         MSG1 New
+***************************************************
+The following new MSG1 ( 49 bytes ) has been created by MSG1_new ():
+    0000 - 0d 00 00 00 00 00 00 00-41 6d 61 6c 20 69 73 20   ........Amal is 
+    0010 - 48 6f 70 65 00 10 00 00-00 00 00 00 00 42 61 73   Hope.........Bas
+    0020 - 69 6d 20 69 73 20 53 6d-69 6c 65 79 00 44 33 22   im is Smiley.D3"
+    0030 - 11                                                .
+
+Amal sent message 1 ( 49 bytes ) to the KDC with:
+    IDa ='Amal is Hope'
+    IDb = 'Basim is Smiley'
+    Na ( 4 Bytes ) is:
+    0000 - 44 33 22 11                                       D3".
+
+
+Amal has terminated normally. Goodbye
