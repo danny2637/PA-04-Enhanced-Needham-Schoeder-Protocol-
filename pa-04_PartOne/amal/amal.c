@@ -1,13 +1,13 @@
 /*----------------------------------------------------------------------------
 PA-04:  Part One Intro to Enhanced Needham-Schroeder Key-Exchange with TWO-way Authentication
 
-FILE:   amal.c     SKELETON
+FILE:   amal.c
 
 Written By:
      1- Samuel George
 	 2- Danny Ramos   (or risk losing points )
 Submitted on:
-     11/11/2026
+     11/10/2026
 ----------------------------------------------------------------------------*/
 
 #include <linux/random.h>

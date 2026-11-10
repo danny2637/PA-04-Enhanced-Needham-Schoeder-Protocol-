@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------
 pa-04_PartOne:  Intro to Enhanced Needham-Schroeder Key-Exchange with TWO-way Authentication
 
-FILE:   kdc.c    SKELETON
+FILE:   kdc.c
 
 Written By:
      1- Dr. Mohamed Aboutabl
@@ -11,6 +11,7 @@ Edited/Finished By:
      2- Danny Ramos
 
 Submitted on:
+     11/10/2026
 ----------------------------------------------------------------------------*/
 
 #include <linux/random.h>
