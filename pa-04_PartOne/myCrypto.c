@@ -587,7 +587,7 @@ void MSG1_receive(FILE *log, int fd, char **IDa, char **IDb, Nonce_t Na)
     *IDa = malloc(LenA);
     if (*IDa == NULL)
     {
-        fprintf(log, "Out of Memory allocating %u bytes for IDA in MSG1_receive() "
+        fprintf(log, "Out of Memory allocating %lu bytes for IDA in MSG1_receive() "
                      "... EXITING\n",
                 LenA);
         fflush(log);
@@ -624,7 +624,7 @@ void MSG1_receive(FILE *log, int fd, char **IDa, char **IDb, Nonce_t Na)
     *IDb = malloc(LenB);
     if (*IDb == NULL)
     {
-        fprintf(log, "Out of Memory allocating %u bytes for IDB in MSG1_receive() "
+        fprintf(log, "Out of Memory allocating %lu bytes for IDB in MSG1_receive() "
                      "... EXITING\n",
                 LenB);
         fflush(log);
@@ -635,7 +635,7 @@ void MSG1_receive(FILE *log, int fd, char **IDa, char **IDb, Nonce_t Na)
     // Now, read IDb ... But on failure to read ID_B from the pipe
     if (read(fd, *IDb, LenB) != LenB)
     {
-        fprintf(log, "Unable to receive all %u bytes of IDB in MSG1_receive() "
+        fprintf(log, "Unable to receive all %lu bytes of IDB in MSG1_receive() "
                      "... EXITING\n",
                 LenB);
         fflush(log);
