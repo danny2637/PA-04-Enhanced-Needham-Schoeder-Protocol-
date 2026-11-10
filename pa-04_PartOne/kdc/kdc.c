@@ -3,9 +3,14 @@ pa-04_PartOne:  Intro to Enhanced Needham-Schroeder Key-Exchange with TWO-way Au
 
 FILE:   kdc.c    SKELETON
 
-Written By: 
+Written By:
      1- Dr. Mohamed Aboutabl
-Submitted on: 
+
+Edited/Finished By:
+     1- Samuel George
+     2- Danny Ramos
+
+Submitted on:
 ----------------------------------------------------------------------------*/
 
 #include <linux/random.h>
@@ -21,8 +26,8 @@ int main ( int argc , char * argv[] )
 {
     int       fd_A2K , fd_K2A   ;
     FILE     *log ;
-    
-    char *developerName = "Code by STUDENTS_LAST_NAMES" ;
+
+    char *developerName = "Code by George & Ramos" ;
 
     fprintf( stdout , "Starting the KDC's   %s\n"  , developerName ) ;
 
@@ -33,8 +38,8 @@ int main ( int argc , char * argv[] )
         exit(-1) ;
     }
 
-    fd_A2K    = ....  ;  // Read from Amal   File Descriptor
-    fd_K2A    = ....  ;  // Send to   Amal   File Descriptor
+    fd_A2K    = atoi( argv[1] )  ;  // Read from Amal   File Descriptor
+    fd_K2A    = atoi( argv[2] )  ;  // Send to   Amal   File Descriptor
 
     log = fopen("kdc/logKDC.txt" , "w" );
     if( ! log )
@@ -53,26 +58,49 @@ int main ( int argc , char * argv[] )
     myKey_t  Ka ;    // Amal's master key with the KDC
 
     // Use  getKeyFromFile( "kdc/amalKey.bin" , ....  )
+    if ( ! getKeyFromFile( "kdc/amalKey.bin", &Ka ))
+    {
+        fprintf( stderr, "\nCould not get Amal's Master key & IV.\n");
+        fprintf( log, "\nCould not get Amal's Master Key & IV.\n");
+        fclose( log ) ;
+        exit(-1);
+    }
 	// On failure, print "\nCould not get Amal's Masker key & IV.\n" to both  stderr and the Log file
 	// and exit(-1)
+    fprintf( log, "Amal has this Master Ka { key , IV }\n");
 	// On success, print "Amal has this Master Ka { key , IV }\n" to the Log file
+    BIO_dump_indent_fp( log, Ka.key, SYMMETRIC_KEY_LEN, 4);
 	// BIO_dump the Key IV indented 4 spaces to the righ
     fprintf( log , "\n" );
 	// BIO_dump the IV indented 4 spaces to the righ
+    BIO_dump_indent_fp( log, Ka.iv, INITVECTOR_LEN, 4);
+    fprintf( log , "\n" ) ;
 
 
     fflush( log ) ;
-    
+
     // Get Basim's master keys with the KDC
-    myKey_t   Kb ;    // Basim's master key with the KDC    
+    myKey_t   Kb ;    // Basim's master key with the KDC
 
     // Use  getKeyFromFile( "kdc/basimKey.bin" , .... ) )
+    if ( ! getKeyFromFile( "kdc/basimKey.bin", &Kb ))
+    {
+        fprintf( stderr, "\nCould not get Basim's Master key & IV.\n");
+        fprintf( log, "\nCould not get Basim's Master Key & IV.\n");
+        fclose( log ) ;
+        exit(-1);
+    }
 	// On failure, print "\nCould not get Basim's Masker key & IV.\n" to both  stderr and the Log file
 	// and exit(-1)
+    fprintf( log, "Basim has this Master Kb { key , IV }\n");
 	// On success, print "Basim has this Master Ka { key , IV }\n" to the Log file
+    BIO_dump_indent_fp( log, Kb.key, SYMMETRIC_KEY_LEN, 4);
 	// BIO_dump the Key IV indented 4 spaces to the righ
     fprintf( log , "\n" );
 	// BIO_dump the IV indented 4 spaces to the righ
+    BIO_dump_indent_fp( log, Kb.iv, INITVECTOR_LEN, 4);
+    fprintf( log , "\n" ) ;
+
     fflush( log ) ;
 
     //*************************************
@@ -84,7 +112,7 @@ int main ( int argc , char * argv[] )
 
     char *IDa , *IDb ;
     Nonce_t  Na ;
-    
+
     // Get MSG1 from Amal
     MSG1_receive( log , fd_A2K , &IDa , &IDb , Na ) ;
 
@@ -93,6 +121,9 @@ int main ( int argc , char * argv[] )
                    "    IDb = '%s'\n" , IDa , IDb ) ;
 
     fprintf( log , "    Na ( %lu Bytes ) is:\n" , NONCELEN ) ;
+
+    BIO_dump_indent_fp( log, Na, NONCELEN, 4);
+    fprintf( log , "\n" ) ;
      // BIO_dump the nonce Na
 
     fflush( log ) ;
@@ -102,11 +133,14 @@ int main ( int argc , char * argv[] )
     // will go here
 
 
-    //*************************************   
+    //*************************************
     // Final Clean-Up
     //*************************************
-    
+    free( IDa );
+    free( IDb );
+
+
     fprintf( log , "\nThe KDC has terminated normally. Goodbye\n" ) ;
-    fclose( log ) ;  
+    fclose( log ) ;
     return 0 ;
 }
